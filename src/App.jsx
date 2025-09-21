@@ -1,15 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from "react";
 import Navbar from './components/Navbar'
+import Hero from "./components/Hero";
 
 const App = () => {
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "light";
+  });
 
-  const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light' );
+  // Optional: persist theme on change
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   return (
-    <div className='bg-white relative'>
-      <Navbar theme = {theme} setTheme = {setTheme}/>
+    <div className="dark:bg-black relative">
+      <Navbar theme={theme} setTheme={setTheme} />
+      <Hero />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
